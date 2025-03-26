@@ -4,15 +4,17 @@ class Solution:
         # 2. Flatten and sort the input
         # 3. Prefix sum / suffix sum
 
+        total = 0
         for row in grid:
             for n in row:
+                total += n
                 if n % x != grid[0][0] % x:
                     return -1
 
-        nums = sorted([n for row in grid for n in row ])
+        nums = [n for row in grid for n in row ]
+        nums.sort()
 
         prefix = 0
-        total = sum(nums)
         res = float('inf')
 
         for i in range(len(nums)):
