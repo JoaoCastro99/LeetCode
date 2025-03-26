@@ -1,26 +1,27 @@
 class Solution:
     def minOperations(self, grid: List[List[int]], x: int) -> int:
-        # 1. Check all remainders
-        # 2. Flatten and sort the input
-        # 3. Prefix sum / suffix sum
-
-        total = 0
-        for row in grid:
-            for n in row:
-                total += n
-                if n % x != grid[0][0] % x:
-                    return -1
-
-        nums = [n for row in grid for n in row ]
+        # Flatten and sort the input array
+        nums = [num for row in grid for num in row]
+        
+        # Fast early exit checks
+        if not nums:
+            return 0
+        
+        # Check remainder consistency
+        base_remainder = nums[0] % x
+        if any(num % x != base_remainder for num in nums):
+            return -1
+        
+        # Sort the array
         nums.sort()
-
-        prefix = 0
-        res = float('inf')
-
-        for i in range(len(nums)):
-            cost_left = nums[i] * i - prefix
-            cost_right = total - prefix - (nums[i] * (len(nums) - i))
-            operations = (cost_left + cost_right) // x
-            res = min(res, operations)
-            prefix += nums[i]
-        return res             
+        n = len(nums)
+        
+        # Find median for minimum operations
+        median = nums[n // 2]
+        
+        # Calculate total operations
+        total_ops = sum(abs(num - median) // x for num in nums)
+        
+        return total_ops
+        
+        return total_ops
