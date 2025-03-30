@@ -1,5 +1,5 @@
 class Solution:
-    def countCompleteComponents(self, n: int, edges: list[list[int]]) -> int:
+    def countCompleteComponents(self, n: int, edges: List[List[int]]) -> int:
         
         def dfs(v, res):
             if v in visit:
